@@ -1,0 +1,12 @@
+{
+  "name": "who_pay_app",
+  "displayName": "who_pay_app",
+  "expo": {
+    "name": "who_pay_app",
+    "slug": "who_pay_app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
