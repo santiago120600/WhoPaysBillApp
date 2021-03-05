@@ -9,8 +9,27 @@ import { MyContext } from '../context';
 
 const StageOne = () =>{
     const  context = useContext(MyContext);
+
+    const renderPlayers = () =>( 
+      context.state.players.map((item,idx)=>(
+        <ListItem
+          key={idx}
+          bottomDivider
+          style={{width:'100%'}}
+          onLongPress={()=>context.removePlayer(idx)}
+        >
+          <ListItem.Chevron/>
+          <ListItem.Content>
+            <ListItem.Title>{item}</ListItem.Title>
+          </ListItem.Content>
+        </ListItem>
+      ))
+    )
+
+
     console.log(context);
     return(
+      <>
       <Formik
         initialValues={{player:''}}
         validationSchema={Yup.object({
@@ -20,7 +39,8 @@ const StageOne = () =>{
           .required('Name is required')
         })}
         onSubmit={(values,{resetForm})=>{
-          alert(values);
+          context.addPlayer(values.player)
+          resetForm();
         }}
       >
         {({handleChange, handleBlur, handleSubmit, values, touched, errors})=>(
@@ -33,18 +53,40 @@ const StageOne = () =>{
                 marginHorizontal:50,
                 marginTop:50
               }}
+              renderErrorMessage={errors.player && touched.player}
+              errorMessage={errors.player}
+              errorStyle={{marginHorizontal:50}}
               onChangeText={handleChange('player')}
               onBlur={handleBlur('player')}
               value={values.player}
             />
             <Button 
+              buttonStyle={styles.button}
               title="Add player"
               onPress={handleSubmit}
             />
           </>
         )}
       </Formik>
+      <View style={{padding:20,width:'100%'}}>
+        {
+          context.state.players && context.state.players.length > 0 ?
+            <>
+              <Text>List of players</Text>
+              {renderPlayers()}
+            </>
+          : null
+        }              
+      </View>
+      </>
     )
 }
+
+const styles = StyleSheet.create({
+  button:{
+    backgroundColor:'#DB3EB1',
+    marginTop:20
+  }
+})
 
 export default StageOne;
