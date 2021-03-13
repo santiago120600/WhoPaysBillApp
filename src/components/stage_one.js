@@ -45,7 +45,7 @@ const StageOne = () =>{
       >
         {({handleChange, handleBlur, handleSubmit, values, touched, errors})=>(
           <>
-            <Text>Who pays the bill</Text>
+            <Text style={{fontFamily:'Pacifico-Regular'}}>Who pays the bill</Text>
             <Input
               placeholder='Add names'
               leftIcon={{type:'antdesign',name:"adduser"}}
